@@ -36,4 +36,4 @@
 /lcov/
 /src
 /mapfile
-/build
+/tools/python/__pycache__/

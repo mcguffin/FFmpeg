@@ -66,7 +66,7 @@ static int check(AVIOContext *pb, int64_t pos, uint32_t *header);
 
 /* mp3 read */
 
-static int mp3_read_probe(AVProbeData *p)
+static int mp3_read_probe(const AVProbeData *p)
 {
     int max_frames, first_frames = 0;
     int whole_used = 0;
@@ -91,7 +91,7 @@ static int mp3_read_probe(AVProbeData *p)
 
             header = AV_RB32(buf2);
             ret = avpriv_mpegaudio_decode_header(&h, header);
-            if (ret != 0)
+            if (ret != 0 || end - buf2 < h.frame_size)
                 break;
             buf2 += h.frame_size;
             framesizes += h.frame_size;
